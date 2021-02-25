@@ -46,8 +46,9 @@ def createMethodScriptFile(path, lua_method):
     lua_method_code = lua_method.attributes['luaMethodCode'].value
     
     file = open(full_path, "w")
-    for s in lua_method_code:
-        file.write(s)
+    file.write(lua_method_code)
+    # for s in lua_method_code:
+    #     file.write(s)
     file.close()
 
 def createFoldersOnly(root_folder, lua_method_groups):
@@ -71,14 +72,17 @@ def createFoldersAndScriptFiles(root_folder, xmldoc):
         p = Path(PureWindowsPath(root_folder).joinpath(lua_method_group.attributes['name'].value))
         try:
             p.mkdir(parents=True)
+
+        except FileExistsError as exc:
+            print(exc)
+
+        if p.is_dir():
+            # create Script Files
             lua_methods = lua_method_group.getElementsByTagName('luaMethod')
             #lua_methods = lua_method_group.childNodes
             print(f"creating {len(lua_methods)} lua script files")
             for m in lua_methods:
                 createMethodScriptFile(p, m)
-
-        except FileExistsError as exc:
-            print(exc)
     pass
 
 
