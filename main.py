@@ -1,18 +1,5 @@
-
-
-# import xml.etree.ElementTree as ET
-# tree = ET.parse('sd1000.panel')
-# root = tree.getroot()
-
-# for type_tag in root.findall('luaManager'):
-#     value = type_tag.get('foobar')
-#     print(value)
-
-
 from pathlib import Path, PureWindowsPath
-
 from xml.dom import minidom
-
 
 # Example
 #<panel>
@@ -29,6 +16,24 @@ from xml.dom import minidom
 #                luaMethodValid="1"/>
 #   </luaMethodGroup>
 
+
+#
+# etree
+#
+
+# import xml.etree.ElementTree as ET
+# tree = ET.parse('sd1000.panel')
+# root = tree.getroot()
+
+# for type_tag in root.findall('luaManager'):
+#     value = type_tag.get('foobar')
+#     print(value)
+
+
+#
+# xml.dom
+#
+
 # luaMethodGroups (parentNode)
 # |
 # |->luaMethod (childNode)
@@ -37,6 +42,9 @@ from xml.dom import minidom
 # itemlist = xmldoc.getElementsByTagName('luaMethod')
 # for s in itemlist:
 #     print(s.attributes['luaMethodName'].value)
+
+
+
 
 def createMethodScriptFile(path, lua_method):
     lua_method_name = lua_method.attributes['luaMethodName'].value
